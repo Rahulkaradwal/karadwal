@@ -32,4 +32,3 @@ int main()
 	printf("    P[%d]\t\t\t\t   %d\t\t\t\t     %d\t\t\t\t\n",p[i],bt[i],a[i]);
 	}
 }
-
