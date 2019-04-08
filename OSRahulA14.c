@@ -19,46 +19,36 @@ int main()
         b1=b1+bt[i];
         printf("Arrival Time:");
         scanf("%d",&a[i]);
-        p[i]=i+1;
-        printf("Initially Priority ");
+   	printf("Initially Priority ");
 		scanf("%d",&pr[i]);           
     }
     
     for(k=0;k<n;k++)
     {
     	a[k]=0;
-	}
-    for(j=0;j<b1;j++)
+    }
+    for(i=0;i<b1;i++)
     {
-    a: for(i=0;i<n;i++)
-     {
-     	if(pr[i]<big)
-     	{
-     		big=pr[i];
-     		l=i;
-     		if(bt[l]==0)
-     		{
-     		 pr[l]=10;
-			  goto a;	
+    	for(j=0;j<n;j++)
+    	{
+    		if(pr[j]<big&&bt[j]>=0)
+    		{
+    		
+    			big=pr[j];
+    			l=j;
 			}
 		}
-	   
-	 }
-	 bt[l]=bt[l]-1;
-	 a[l]=a[l]+1;
-	 for(i=0;i<n;i++)
-	 {
-	 	if(i!=big)
-	 	{
-	 	 wt[i]=wt[i]+1;	
+		a[l]=a[l]+1;
+		bt[l]=bt[l]-1;
+		for(k=0;k<n;k++)
+		{
+			pr[k]=(a[k]/2)*60;
 		}
-	 }
-	 for(i=0;i<n;i++)
-	 {
-	 	pr[i]=(a[i]/2)+60;	 
-	 }
-   }
-	 
-}
+        
+	}
+	for(i=0;i<n;i++)
+	{
+		printf("Recalculated Priority of Process %d: %d\n",i+1,pr[i]);
+	}
 
 }
