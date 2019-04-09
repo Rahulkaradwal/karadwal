@@ -29,7 +29,7 @@ int main()
 
 	
     
-    for(k=0;k<n;k++)  //cPu ussage
+    for(k=0;k<n;k++)  //Here we are calculating cpu ussage
     {
     	a[k]=0;
     }
@@ -46,9 +46,9 @@ int main()
 		}
 		a[l]=a[l]+1;
 		bt[l]=bt[l]-1;
-		if(bt[l]=0)
+		if(bt[l]==0)
 		{
-			bt[l]==0;
+			bt[l]=0;
 		}
 		for(k=0;k<n;k++)
 		{
@@ -63,40 +63,6 @@ int main()
 	}
     
     
-    
-      //sorting burst time, priority and process number in ascending order using selection sort
-    
-	for(i=0;i<n;i++)
-    {
-        pos=i;
-        for(j=0;j<n;j++)
-        {
-            if(pr[j]<pr[pos])
-            {
-			
-                pos=j;
- 
-        temp=pr[i];
-        pr[i]=pr[pos];
-        pr[pos]=temp;
- 
-        temp=bt[i];
-        bt[i]=bt[pos];
-        bt[pos]=temp;
- 
-        temp=p[i];
-        p[i]=p[pos];
-        p[pos]=temp;
-        
-         temp=ar[i];
-        ar[i]=ar[pos];
-        ar[pos]=temp;
-        pos++;
-    }
-    }
-    }  	
-  
-  
   	printf("\t\t\t\t VALUES AFTER RECALCULATEING THE NEW PRIORITIES");
   	 printf("\n");
   	 fflush(stdin);
@@ -104,3 +70,75 @@ int main()
 	for(i=0;i<n;i++){
 	printf("    P[%d]\t\t\t\t    %d\t\t\t\t     %d\t\t\t\t    %d\n",i+1,num[i],ar[i],pr[i]);
 	}
+	// yha tak
+	
+	for(i=0; i<n; i++)				// Sorting the process according to the Priority
+        for(j=0; j<n; j++)
+        {
+            if(pr[i]<pr[j])
+            {
+                temp=pr[i];
+                pr[i]=pr[j];
+                pr[j]=temp;
+                temp=ar[i];
+                ar[i]=ar[j];
+                ar[j]=temp;
+                temp=num[i];
+                num[i]=num[j];
+                num[j]=temp;
+                temp=p[i];
+                p[i]=p[j];
+                p[j]=temp;
+            }
+        }
+        for(i=0; i<n; i++)
+ 
+    {
+ 
+        if(i==0)
+        {
+            start[i]=ar[i];
+            wt[i]=start[i]-ar[i];
+            final[i]=start[i]+num[i];
+            tat[i]=final[i]-ar[i];
+        }
+        else
+        {
+            start[i]=final[i-1];
+            wt[i]=start[i]-ar[i];
+            final[i]=start[i]+num[i];
+            tat[i]=final[i]-ar[i];
+        }
+        totwait+=wt[i];
+        totturn+=tat[i];
+    }
+     avgwt=(float)totwait/n;
+    avgta=(float)totturn/n;
+     printf("\n");
+      printf("\n");
+      printf("\t\t VALUES AFTER CALCULATING THE WAITING TIME AND TURNAROUND TIME ");
+       printf("\n");
+        printf("\n");
+    printf("\nProcess\tArrival time\tBurst time\tPriority\tWaiting time\tTurnaround time");
+    for(i=0; i<n; i++)
+    {
+    if(wt[i]<0)
+    {
+    	wt[i]=wt[i]*-1;
+	}
+	if(tat[i]<0)
+	{
+		tat[i]=tat[i]*-1;
+	}
+        printf("\nP[%d]\t%5d\t\t%5d\t\t%5d\t\t%5d\t\t%5d",p[i],ar[i],num[i],pr[i],wt[i],tat[i]);
+         printf("\n");
+         
+    }
+    
+    printf("\n\t\t Average Waiting time :%f",avgwt);
+    printf("\t\t Average Turnaround time :%f",avgta);
+    
+	getch();
+	
+return 0;
+}
